@@ -1,19 +1,32 @@
+// hooks/scaffold-eth/useDeployedContractInfo.ts
 import { useEffect, useState } from "react";
 import { useTargetNetwork } from "./useTargetNetwork";
 import { useIsMounted } from "usehooks-ts";
 import { usePublicClient } from "wagmi";
 import { Contract, ContractCodeStatus, ContractName, contracts } from "~~/utils/scaffold-eth/contract";
 
+//import { Address } from "viem";
+
 /**
- * Gets the matching contract info for the provided contract name from the contracts present in deployedContracts.ts
- * and externalContracts.ts corresponding to targetNetworks configured in scaffold.config.ts
+ * 获取部署的合约信息
+ * 根据 scaffold.config.ts 中配置的 targetNetworks，获取对应链上的合约信息
+ * @param contractName 合约名称
+ * @returns 合约数据和加载状态
  */
 export const useDeployedContractInfo = <TContractName extends ContractName>(contractName: TContractName) => {
   const isMounted = useIsMounted();
   const { targetNetwork } = useTargetNetwork();
-  const deployedContract = contracts?.[targetNetwork.id]?.[contractName as ContractName] as Contract<TContractName>;
+
+  // 将 targetNetwork.id 转换为 number 类型
+  const chainId = Number(targetNetwork.id);
+
+  // **修正部分开始**
+  // 将 contractName 强制转换为 string 类型
+  const deployedContract = contracts?.[chainId]?.[contractName as string] as Contract<TContractName>;
+  // **修正部分结束**
+
   const [status, setStatus] = useState<ContractCodeStatus>(ContractCodeStatus.LOADING);
-  const publicClient = usePublicClient({ chainId: targetNetwork.id });
+  const publicClient = usePublicClient({ chainId });
 
   useEffect(() => {
     const checkContractDeployment = async () => {
@@ -29,7 +42,7 @@ export const useDeployedContractInfo = <TContractName extends ContractName>(cont
           address: deployedContract.address,
         });
 
-        // If contract code is `0x` => no contract deployed on that address
+        // 如果合约代码是 `0x`，表示该地址上没有部署合约
         if (code === "0x") {
           setStatus(ContractCodeStatus.NOT_FOUND);
           return;
