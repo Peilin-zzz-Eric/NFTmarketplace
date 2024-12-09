@@ -35,7 +35,7 @@ const UploadAndMintNFT = () => {
     setError("");
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     setFile(event.target.files[0]);
   };
 
@@ -97,11 +97,14 @@ const UploadAndMintNFT = () => {
 
   return (
     <div style={{ padding: "20px", textAlign: "left" }}>
+      {/* 显示错误信息在对话框外部 */}
+      {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+
       <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "10px" }}>
         <h2 style={{ fontSize: "28px", color: "#333", margin: "0" }}>Create NFT</h2>
         <button
           onClick={() => {
-            resetFields(); 
+            resetFields();
             setDialogOpen(true);
           }}
           style={{
@@ -140,7 +143,7 @@ const UploadAndMintNFT = () => {
             type="text"
             placeholder="Enter Collection Address"
             value={contractAddress}
-            onChange={(e) => setContractAddress(e.target.value)}
+            onChange={e => setContractAddress(e.target.value)}
             style={{
               width: "100%",
               padding: "8px",
@@ -155,7 +158,7 @@ const UploadAndMintNFT = () => {
             type="text"
             placeholder="NFT Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             style={{
               width: "100%",
               padding: "8px",
@@ -169,7 +172,7 @@ const UploadAndMintNFT = () => {
             type="text"
             placeholder="NFT Color"
             value={color}
-            onChange={(e) => setColor(e.target.value)}
+            onChange={e => setColor(e.target.value)}
             style={{
               width: "100%",
               padding: "8px",
@@ -183,7 +186,7 @@ const UploadAndMintNFT = () => {
             type="text"
             placeholder="NFT Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={e => setDescription(e.target.value)}
             style={{
               width: "100%",
               padding: "8px",
@@ -197,7 +200,7 @@ const UploadAndMintNFT = () => {
             type="text"
             placeholder="Recipient Address"
             value={recipient}
-            onChange={(e) => setRecipient(e.target.value)}
+            onChange={e => setRecipient(e.target.value)}
             style={{
               width: "100%",
               padding: "8px",
@@ -212,7 +215,7 @@ const UploadAndMintNFT = () => {
             <input
               type="checkbox"
               checked={listOnMarketplace}
-              onChange={(e) => setListOnMarketplace(e.target.checked)}
+              onChange={e => setListOnMarketplace(e.target.checked)}
               style={{ marginRight: "5px" }}
             />
             List on Marketplace
@@ -223,7 +226,7 @@ const UploadAndMintNFT = () => {
               type="text"
               placeholder="Price in ETH (e.g., 0.1)"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={e => setPrice(e.target.value)}
               style={{
                 width: "100%",
                 padding: "8px",

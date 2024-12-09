@@ -1,17 +1,20 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useState } from "react";
+// 移除未使用的 Link
+// import Link from "next/link";
+import DeployNFT from "../components/DeployNFT";
+import DisplayNFTCollection from "../components/DisplayNFTCollection";
+// 移除未使用的 NFTManager
+// import NFTManager from "../components/NFTManager";
+import UploadAndMintNFT from "../components/UploadAndMintNFT";
+import ViewNFTContracts from "../components/ViewNFTContracts";
+import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+// 移除未使用的 BugAntIcon 和 MagnifyingGlassIcon
+// import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
-import DeployNFT from "../components/DeployNFT";
-import ViewNFTContracts from "../components/ViewNFTContracts";
-import { useEffect, useState } from "react";
-import NFTManager from "../components/NFTManager";
-import UploadAndMintNFT from "../components/UploadAndMintNFT";
-import DisplayNFTCollection from "../components/DisplayNFTCollection";
-import { ethers } from "ethers";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();

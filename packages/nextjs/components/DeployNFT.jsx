@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { NFT_FACTORY_ABI, NFT_FACTORY_ADDRESS } from "../utils/contractConfig";
 import { ethers } from "ethers";
-import { NFT_FACTORY_ADDRESS, NFT_FACTORY_ABI } from "../utils/contractConfig";
 
 const DeployNFT = ({ provider }) => {
   const [name, setName] = useState("");
@@ -70,14 +70,12 @@ const DeployNFT = ({ provider }) => {
               textAlign: "left",
             }}
           >
-            <h3 style={{ marginBottom: "10px", fontSize: "18px" }}>
-              Deploy Your NFT Contract
-            </h3>
+            <h3 style={{ marginBottom: "10px", fontSize: "18px" }}>Deploy Your NFT Contract</h3>
             <input
               type="text"
               placeholder="Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
               style={{
                 width: "100%",
                 padding: "8px",
@@ -91,7 +89,7 @@ const DeployNFT = ({ provider }) => {
               type="text"
               placeholder="Symbol"
               value={symbol}
-              onChange={(e) => setSymbol(e.target.value)}
+              onChange={e => setSymbol(e.target.value)}
               style={{
                 width: "100%",
                 padding: "8px",

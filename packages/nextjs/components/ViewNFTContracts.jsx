@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { NFT_FACTORY_ABI, NFT_FACTORY_ADDRESS } from "../utils/contractConfig";
 import { ethers } from "ethers";
-import { NFT_FACTORY_ADDRESS, NFT_FACTORY_ABI } from "../utils/contractConfig";
 
 const ViewNFTContracts = ({ provider }) => {
   const [contractDetails, setContractDetails] = useState([]);
-  const [showContracts, setShowContracts] = useState(false); 
+  const [showContracts, setShowContracts] = useState(false);
 
   const fetchUserContracts = async () => {
     if (showContracts) {
@@ -18,17 +18,13 @@ const ViewNFTContracts = ({ provider }) => {
     try {
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
-      const factoryContract = new ethers.Contract(
-        NFT_FACTORY_ADDRESS,
-        NFT_FACTORY_ABI,
-        signer
-      );
+      const factoryContract = new ethers.Contract(NFT_FACTORY_ADDRESS, NFT_FACTORY_ABI, signer);
 
       const contracts = await factoryContract.getUserNFTContracts(userAddress);
 
       if (contracts && contracts.length > 0) {
         const details = await Promise.all(
-          contracts.map(async (contractAddress) => {
+          contracts.map(async contractAddress => {
             try {
               const [name, symbol] = await factoryContract.getNFTDetails(contractAddress);
               return { address: contractAddress, name, symbol };
@@ -36,7 +32,7 @@ const ViewNFTContracts = ({ provider }) => {
               console.error(`Error fetching details for ${contractAddress}:`, err);
               return { address: contractAddress, name: "Unknown", symbol: "Unknown" };
             }
-          })
+          }),
         );
         setContractDetails(details);
       } else {
@@ -51,9 +47,7 @@ const ViewNFTContracts = ({ provider }) => {
   return (
     <div style={{ padding: "20px", textAlign: "left" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-        <h2 style={{ fontSize: "28px", color: "#333", margin: "0" }}>
-          Your Deployed NFT Contracts
-        </h2>
+        <h2 style={{ fontSize: "28px", color: "#333", margin: "0" }}>Your Deployed NFT Contracts</h2>
         <button
           onClick={fetchUserContracts}
           style={{
@@ -90,9 +84,7 @@ const ViewNFTContracts = ({ provider }) => {
                 textAlign: "left",
               }}
             >
-              <h3 style={{ fontSize: "16px", color: "#333", marginBottom: "5px" }}>
-                NFT Contract
-              </h3>
+              <h3 style={{ fontSize: "16px", color: "#333", marginBottom: "5px" }}>NFT Contract</h3>
               <p>
                 <strong>Address:</strong> {contract.address}
               </p>
