@@ -12,7 +12,7 @@ const tenderlyNetwork = {
   name: "TenderlyFork",
   network: "Mainnet",
   rpcUrls: {
-    default: { http: ["https://virtual.mainnet.rpc.tenderly.co/6b1378fe-efdb-4fac-ad8a-cac938199239"] },
+    default: { http: ["https://virtual.mainnet.rpc.tenderly.co/8291d752-1bf2-4834-be63-e22ae0dbfe7b"] },
   },
   nativeCurrency: {
     name: "Ether",
